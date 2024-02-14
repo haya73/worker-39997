@@ -10,7 +10,6 @@ class WorkersController < ApplicationController
   end
 
   def create
-    binding.pry
     @worker = Worker.new(worker_params)
     if @worker.save
       redirect_to root_path
@@ -19,7 +18,30 @@ class WorkersController < ApplicationController
     end
   end
 
+  def show
+    @worker = Worker.find(params[:id])
+    #@comment = Comment.new
+    #@comments = @prototype.comments
+  end
 
+  def edit
+    @worker = Worker.find(params[:id])
+  end
+
+  def update
+    @worker = Worker.find(params[:id])
+    if @worker.update(worker_params)
+      redirect_to worker_path
+    else
+      render :edit, status: :unprocessable_entity
+    end
+  end
+
+  def destroy
+    worker = Worker.find(params[:id])
+    worker.destroy
+    redirect_to root_path
+  end
 
   private
   def worker_params
