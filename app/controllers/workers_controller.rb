@@ -20,8 +20,8 @@ class WorkersController < ApplicationController
 
   def show
     @worker = Worker.find(params[:id])
-    #@comment = Comment.new
-    #@comments = @prototype.comments
+    @comment = Comment.new
+    @comments = @worker.comments
   end
 
   def edit

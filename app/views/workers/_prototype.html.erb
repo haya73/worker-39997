@@ -1,12 +1,10 @@
-<% @workers.each do |worker| %>
 <div class="card">
-  <%#= link_to image_tag(worker.image, class: :card__img ), worker_path(worker)%>
+  <%# link_to image_tag(worker.image, class: :card__img ), worker_path(worker)%>
   <div class="card__body">
-    <%= link_to worker.title, worker_path(worker), class: :card__title%>
+    <%= link_to worker.title, worker_path(worker), class: 'card__title' %>
     <p class="card__summary">
       <%= worker.catch_copy %>
     </p>
-    <%= link_to worker.user.name, "/users/#{worker.user.id}", class: :card__user %>
+    <%= link_to worker.user.name, "/users/#{worker.user.id}", class: 'card__user' %>
   </div>
 </div>
-<% end %>
