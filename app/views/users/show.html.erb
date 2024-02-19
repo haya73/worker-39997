@@ -29,7 +29,9 @@
       </h2>
       <div class="user__card">
         <%# 部分テンプレートでそのユーザーが投稿したプロトタイプ投稿一覧を表示する %>
-        <%= render partial: 'workers/prototype', collection: @user.workers %>
+        <% @workers.each do |worker| %>
+          <%= render 'workers/prototype', worker: worker %>
+        <% end %>
       </div>
     </div>
   </div>
