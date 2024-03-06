@@ -1,0 +1,114 @@
+  <!DOCTYPE html>
+  <html lang="ja">
+    <head>
+      <meta charset="UTF-8" />
+      <meta
+        name="viewport"
+        content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0"
+      />
+      <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.3.4/axios.min.js"></script>
+      <title>Document</title>
+    </head>
+    <body>
+      <main>
+        <p>テキストを入力して送信ボタンを押すと、ChatGPTが返答を生成し、VOICEVOXがその返答を音声化します。</p>
+        <div class="input-area">
+          <div class="cp_iptxt">
+            <label class="ef">
+            <input type="text" placeholder="AIにメッセージを送る" name="talk" />
+          </div>
+          <button type="button" class="send">送信</button>
+          <%= link_to image_tag("border.png", class: :frame), root_path %>
+        </div>
+        <audio class="audio"></audio>
+        <div class="chat-log"></div>
+      </main>
+      <script>
+        // TODO: OpenAI API キーを入力
+        const api_key = "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";
+        let lastResponse = null; // 追加
+
+        const sendButton = document.querySelector(".send");
+        sendButton.addEventListener("click", async () => {
+          const text = document.querySelector("[name=talk]");
+          const responseText = await requestChatAPI(text.value);
+          addChatLog(`User: ${text.value}`);
+          addChatLog(`ChatGPT: ${responseText}`);
+          await createAudio(responseText);
+        });
+
+        function addChatLog(message) {
+          const chatLog = document.querySelector('.chat-log');
+          chatLog.innerHTML += `<p>${message}</p>`;
+        }
+
+        async function requestChatAPI(text) {
+          const headers = {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${api_key}`,
+          };
+
+          const messages = [
+            {
+              role: "system",
+              content: "ゴルゴ13を必ず演じてください。喜怒哀楽の表現をほとんど見せず、言葉数は少なく、必ずデューク東郷に成り切って喋り口調で会話してください"
+            },
+            {
+              role: "user",
+              content: text,
+            },
+          ];
+
+          // 最後の応答が存在する場合、それをメッセージリストに追加します。
+          if (lastResponse) {
+            messages.unshift({
+              role: "assistant",
+              content: lastResponse,
+            });
+          }
+
+          const payload = {
+            model: "gpt-3.5-turbo",
+            max_tokens: 128,
+            messages: messages,
+          };
+          const response = await axios.post(
+            "https://api.openai.com/v1/chat/completions",
+            payload,
+            {
+              headers: headers,
+            }
+          );
+
+          // 応答を保存します。
+          lastResponse = response.data.choices[0].message.content;
+
+          return lastResponse;
+        }
+
+        async function createAudio(text) {
+          const data = await createVoice(text);
+          const audio = document.querySelector(".audio");
+          audio.src = URL.createObjectURL(data);
+          audio.play();
+        }
+        async function createQuery(text) {
+          const response = await axios.post(
+            `http://localhost:50021/audio_query?speaker=1&text=${text}`
+          );
+          return response.data;
+        }
+        async function createVoice(text) {
+          const query = await createQuery(text);
+          const response = await axios.post(
+            "http://localhost:50021/synthesis?speaker=1",
+            query,
+            { responseType: "blob" }
+          );
+          return response.data;
+        }
+      </script>
+    </body>
+  </html>
+<% end %>

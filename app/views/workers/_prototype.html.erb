@@ -5,6 +5,7 @@
     <p class="card__summary">
       <%= worker.catch_copy %>
     </p>
+    <%= worker.pt_name %>
     <%= link_to worker.user.name, "/users/#{worker.user.id}", class: 'card__user' %>
   </div>
 </div>
