@@ -7,6 +7,7 @@ GPTに質問して音声で返答してくれる機能を搭載した
 
 
 * 事前に必要な物
+
 ① VOICEVOXをインストールして、起動しておく必要があります。
 https://voicevox.hiroshiba.jp/
 
