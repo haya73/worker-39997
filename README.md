@@ -1,24 +1,21 @@
 # README
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+ケースワークの仕事をしている中で、患者さんと外出することがある。
+一人で様々な判断を行うことがあり、ケースのメモ帳的な機能と
+GPTに質問して音声で返答してくれる機能を搭載した
+一人だけで悩まずに済むかもしれないアプリです。
 
-Things you may want to cover:
 
-* Ruby version
+* 事前に必要な物
+① VOICEVOXをインストールして、起動しておく必要があります。
+https://voicevox.hiroshiba.jp/
 
-* System dependencies
+② ChatGPTのAPIキーを用意しておく必要があります。
 
-* Configuration
+* 使い方
+新規登録・ログインを行うことでトップ画面と記事の詳細画面で
+AIと相談することができます。
 
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+* クレジット
+ChatGPT   https://openai.com/chatgpt
+VOICEVOX  https://voicevox.hiroshiba.jp/
