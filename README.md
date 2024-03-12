@@ -6,17 +6,18 @@ GPTに質問して音声で返答してくれる機能を搭載した
 一人だけで悩まずに済むかもしれないアプリです。
 
 
-* 事前に必要な物
+* 事前に必要な物<br>
 
-① VOICEVOXをインストールして、起動しておく必要があります。
+<br>① VOICEVOXをインストールして、起動しておく必要があります。
 https://voicevox.hiroshiba.jp/
 
-② ChatGPTのAPIキーを用意しておく必要があります。
+<br>② ChatGPTのAPIキーを用意しておく必要があります。<br>
+index.html.erbにAPIを記載する場所があるので記載します。
 
-* 使い方
+* 使い方<br>
 新規登録・ログインを行うことでトップ画面と記事の詳細画面で
 AIと相談することができます。
 
-* クレジット
-ChatGPT   https://openai.com/chatgpt
+* クレジット<br>
+ChatGPT   https://openai.com/chatgpt <br>
 VOICEVOX  https://voicevox.hiroshiba.jp/
